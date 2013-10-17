@@ -33,11 +33,12 @@ $(document).ready(function(){
   $('.new-folder').click(function(){
     folder_name=window.prompt($('#insert_folder_name').val(),$('#new_folder').val());
     if(folder_name){
+      var path = $('#sub_dir').val();
       folder_path=folder_name;
       $.ajax({
         type: "POST",
         url: "create_folder.php",
-        data: {path: folder_path}
+        data: {path: path+"/"+folder_path}
       }).done(function( msg ) {
         window.location.href = $('#refresh').attr('href') + '&' + new Date().getTime();
       });

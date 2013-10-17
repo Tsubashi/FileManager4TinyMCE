@@ -22,13 +22,12 @@ if(isset($_POST['submit'])) {
   $cur_thumbs_url = joinURL($base_url,$thumbs_dir,$subdir);
   $cur_thumbs_path = joinPaths($root,$thumbs_dir,$subdir);
   
+  //create the upload and thumbs directories if they do not exist
+  create_folder($cur_upload_path,$cur_thumbs_path);
+  
   if (empty($base_url)) {
     $cur_upload_url = "/".$cur_upload_url;
     $cur_thumbs_url = "/".$cur_thumbs_url;
-  }
-  
-  if (!file_exists($cur_thumbs_path)) {
-    create_folder(false,$cur_thumbs_path);
   }
 
   //Include Language definitions
@@ -101,7 +100,7 @@ if(isset($_POST['submit'])) {
       <input type="hidden" id="insert_folder_name" value="<?= lang_Insert_Folder_Name;  ?>" />
       <input type="hidden" id="new_folder" value="<?= lang_New_Folder;  ?>" />
       <input type="hidden" id="cur_dir" value="<?=$cur_upload_url;?>"/>
-      <input type="hidden" id="cur_dir" value="<?=$cur_upload_url;?>"/>
+      <input type="hidden" id="sub_dir" value="<?=$subdir;?>"/>
       
       <?php 
       if($upload_files) { ?>
