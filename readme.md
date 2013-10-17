@@ -77,24 +77,23 @@ Use the following url where every you would like to call the file manager
 ###Details###
 The main workhorse of the filemanager is _dialog.php_. By passing different GET variables, we can change some of its' actions.
 * type
-0 = Plain Filemanager
-1 = Image Select
-2 = File Select
-3 = Video Select
-***NOTE:*** Types 1-3 require field_id as well
+   * 0 = Plain Filemanager
+   * 1 = Image Select
+   * 2 = File Select
+   * 3 = Video Select
+   * **NOTE:** Types 1-3 require field_id as well
 * editor
-TODO:
-[ ] Figure out what the editor variable does
+  * TODO: Figure out what the editor variable does
 * lang
-Specifies a language to use for the tooltips and such
+  * Specifies a language to use for the tooltips and such
 * fldr
-Short for "Folder." Specifies which directory to start in. Usually blank to signify the top level of whichever directory was specified in _config.php_
+  * Short for "Folder." Specifies which directory to start in. Usually blank to signify the top level of whichever directory was specified in _config.php_
 * field_id
-The id of the field to place the select image's path into. 
+  * The id of the field to place the select image's path into. 
 * popup
-Specify 1 if you would like the filemanager to popup in a new window. You may omit this variable otherwise, or set it to 0.
+  * Specify 1 if you would like the filemanager to popup in a new window. You may omit this variable otherwise, or set it to 0.
 
-###Sample Fancybox Configuration###
+###Sample Fancybox Configuration
 ```
 $('.iframe-btn').fancybox({	
   'width'         : 900,
@@ -115,22 +114,22 @@ function close_window() {
 
 Stuff from the original readme
 ----------------------------------------
-###Old Changelogs###
-Version 6.2.0
+###Old Changelogs
+#####Version 6.2.0
 - Improve quality of images resizing using PHP Image Magician
 
-Version 6.1.1
+#####Version 6.1.1
 - Automatic compatibility with popup by pass the popup GET variable
 
-Version 6.1.0
+#####Version 6.1.0
 - Compatibility with Internet Explorer and old browser
 - Fix delete bug
 - Improve security
 
-Version 6.0.1
+#####Version 6.0.1
 - Improve Responsive design
 
-Version 6.0.0
+#####Version 6.0.0
 - New amazing flat interface
 - Possibility to set subfolder as root
 - Ajax files and folders cancellation
@@ -140,10 +139,10 @@ Version 6.0.0
 - Fix bug in file selection on subfolder and Other bug fix
 - Mobile version with swipe event to show options
 
-Version 5:
+#####Version 5:
 - Stand-alone use of filemanager, you can open and select files also dividing them according to the type (video, images and all files)
 
-Version 4:
+#####Version 4:
 - Further simplify the installation steps
 - Now thumbs folder is inside the file manager script
 - Fix resizing bug, create folder possible bug
@@ -155,14 +154,14 @@ Version 4:
 - fallback upload for old browser
 - fix folder delete bug	
 
-Version 3:
+#####Version 3:
 - With this plugin you can also set automatic resizing of uploaded images.
 - Moreover you can set the permits to delete files, folder and create folder.
 - This version support advanced tab on image plugin
 - For preview img in files list the plugin NOW create a thumbnail image with low resolution!!!
 - Simplify the installation steps
 
-###Localization###
+###Localization
 - BGR [Stanislav Panev]
 - BRA [paulomanrique]
 - CZE [jlusticky]
@@ -178,11 +177,11 @@ Version 3:
 
 Credits
 -----------
-Original Creator                 => info@albertoperipolli.com - tr1pp0
-Original Creator until version 1 => mybeeez@gmail.com - b3ez
-Bootstrap                        => http://twitter.github.io/bootstrap/
-Bootstrap Lightbox               => http://jbutz.github.io/bootstrap-lightbox/
-Dropzonejs                       => http://www.dropzonejs.com/
-Fancybox                         => http://fancybox.net/
-TouchSwipe                       => http://labs.rampinteractive.co.uk/touchSwipe/demos/
-PHP Image Magician               => http://phpimagemagician.jarrodoberto.com/‎
+- Original Creator                 => info@albertoperipolli.com - tr1pp0
+- Original Creator until version 1 => mybeeez@gmail.com - b3ez
+- Bootstrap                        => http://twitter.github.io/bootstrap/
+- Bootstrap Lightbox               => http://jbutz.github.io/bootstrap-lightbox/
+- Dropzonejs                       => http://www.dropzonejs.com/
+- Fancybox                         => http://fancybox.net/
+- TouchSwipe                       => http://labs.rampinteractive.co.uk/touchSwipe/demos/
+- PHP Image Magician               => http://phpimagemagician.jarrodoberto.com/‎
