@@ -14,21 +14,13 @@ if(isset($_POST['submit'])) {
   if(!isset($_GET['field_id'])) $_GET['field_id']='';
  (isset($_GET['popup']) ? $popup= $_GET['popup'] :$popup=0);
  (isset($_GET['fldr']) && !empty($_GET['fldr'])) ? $subdir = trim($_GET['fldr'],'/') . '/' : $subdir = '';
-  if(isset($_GET['subfolder']) 
-     && !empty($_GET['subfolder'])
-     && $_GET['subfolder'] != "undefined"
-     ) {
-      $subfolder = $_GET['subfolder'];
-  } else {
-    $subfolder = '';
-  }
         
   //'current' variable definitions 
   //(ie Not from the config file, but generated from its' variables)
-  $cur_upload_url = joinURL($base_url,$upload_dir,$subfolder,$subdir);
-  $cur_upload_path = joinPaths($root,$upload_dir,$subfolder,$subdir);
-  $cur_thumbs_url = joinURL($base_url,$thumbs_dir,$subfolder,$subdir);
-  $cur_thumbs_path = joinPaths($root,$thumbs_dir,$subfolder,$subdir);
+  $cur_upload_url = joinURL($base_url,$upload_dir,$subdir);
+  $cur_upload_path = joinPaths($root,$upload_dir,$subdir);
+  $cur_thumbs_url = joinURL($base_url,$thumbs_dir,$subdir);
+  $cur_thumbs_path = joinPaths($root,$thumbs_dir,$subdir);
   
   if (empty($base_url)) {
     $cur_upload_url = "/".$cur_upload_url;
@@ -54,7 +46,6 @@ if(isset($_POST['submit'])) {
 	$link.=$_GET['lang'] ? $_GET['lang'] : 'en_EN';
 	$link.="&field_id=";
 	$link.=$_GET['field_id'] ? $_GET['field_id'] : '';
-	$link.="&subfolder=".$subfolder;
 	$link.="&fldr="; 
 
 
@@ -117,7 +108,7 @@ if(isset($_POST['submit'])) {
         <!-- uploader div start -->
         <div class="uploader">    
           <form action="dialog.php" method="post" enctype="multipart/form-data" id="myAwesomeDropzone" class="dropzone">
-            <input type="hidden" name="path" value="<?=joinPaths($subfolder,$subdir)?>"/>
+            <input type="hidden" name="path" value="<?=$subdir?>"/>
             <div class="fallback">
               <?= lang_Upload_file ?>:<br/>
               <input name="file" type="file" />
@@ -127,7 +118,6 @@ if(isset($_POST['submit'])) {
               <input type="hidden" name="popup" value="<?=$popup; ?>"/>
               <input type="hidden" name="editor" value="<?=$_GET['editor']?>"/>
               <input type="hidden" name="lang" value="<?=$_GET['lang']?>"/>
-              <input type="hidden" name="subfolder" value="<?=$_GET['subfolder']?>"/>
               <input type="submit" name="submit" value="OK" />
             </div>
           </form>
@@ -232,7 +222,7 @@ if(isset($_POST['submit'])) {
             //List all the folders first
             foreach ($files as $file) {
               $file_path = joinPaths($cur_upload_path,$file);
-              $file_relative_path = joinPaths($subfolder,$subdir,$file);
+              $file_relative_path = joinPaths($subdir,$file);
               $file_thumb_path = joinPaths($cur_thumbs_path,$file);
               if (is_dir($file_path) 
                   && ($file != '.' 
@@ -293,7 +283,7 @@ if(isset($_POST['submit'])) {
             foreach ($files as $nu=>$file) {
               //define convenience variables for this file
               $file_path = joinPaths($cur_upload_path,$file);
-              $file_relative_path = joinPaths($subfolder,$subdir,$file);
+              $file_relative_path = joinPaths($subdir,$file);
               $file_thumb_path = joinPaths($cur_thumbs_path,$file);
               $file_url = joinURL($cur_upload_url,$file);
               $file_thumb_url = joinURL($cur_thumbs_url,$file);
