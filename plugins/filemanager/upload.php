@@ -12,7 +12,7 @@ if (!empty($_FILES) && $upload_files) {
     $targetFileThumb =  joinPaths($root,$thumbs_dir,$_POST['path'],$_FILES['file']['name']);  
     move_uploaded_file($tempFile,$targetFile);
     
-    $is_img=(in_array(substr(strrchr($_FILES['file']['name'],'.'),1),$ext_img) ? true : false)
+    $is_img=(in_array(substr(strrchr($_FILES['file']['name'],'.'),1),$ext_img) ? true : false);
 
     if($is_img) {
       create_img_gd($targetFile, $targetFileThumb, $thumbnail_width, $thumbnail_height);
