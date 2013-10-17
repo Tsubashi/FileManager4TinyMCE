@@ -41,4 +41,28 @@ function create_folder($path=false,$path_thumbs=false){
 	umask($oldumask);
 }
 
+function joinPaths() {
+  $args = func_get_args();
+  $paths = array();
+  foreach ($args as $arg) {
+    $paths = array_merge($paths, (array)$arg);
+  }
+
+  $paths = array_map(create_function('$p', 'return rtrim($p, DIRECTORY_SEPARATOR);'), $paths);
+  $paths = array_filter($paths);
+  return join(DIRECTORY_SEPARATOR, $paths);
+}
+
+function joinURL() {
+  $args = func_get_args();
+  $paths = array();
+  foreach ($args as $arg) {
+    $paths = array_merge($paths, (array)$arg);
+  }
+
+  $paths = array_map(create_function('$p', 'return rtrim($p, "/");'), $paths);
+  $paths = array_filter($paths);
+  return join('/', $paths);
+}
+
 ?>

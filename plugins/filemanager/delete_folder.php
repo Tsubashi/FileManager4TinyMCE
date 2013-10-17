@@ -5,12 +5,13 @@ if($_SESSION["verify"] != "FileManager4TinyMCE") die('forbiden');
 include 'config.php';
 include('utils.php');
 
-$path=$_POST['path'];
-$path_thumbs=$_POST['path_thumb'];
+$path=joinPaths($root,$upload_dir,$_POST['path']);
+$path_thumbs=joinPaths($root,$thumbs_dir,$_POST['path']);
 
-if(strpos($path,$upload_dir)===FALSE || strpos($path_thumbs,'thumbs')!==0) die('wrong path');
-
-deleteDir($path);
-deleteDir($path_thumbs);
+if (!(deleteDir($path)
+    && deleteDir($path_thumbs))
+    ) {
+  echo "Error Deleting Folder: ".$_POST['path'];
+}
 
 ?>

@@ -1,13 +1,12 @@
 <?php
 
 session_start();
-if($_SESSION["verify"] != "FileManager4TinyMCE") die('forbiden');
+if($_SESSION["verify"] != "FileManager4TinyMCE") die('forbidden');
 include 'config.php';
+include 'utils.php';
 
-$path=$_POST['path'];
+$path=joinPaths($root,$upload_dir,$_POST['path']);
 $name=$_POST['name'];
-
-if(strpos($path,$upload_dir)===FALSE) die('wrong path');
 
 header('Pragma: private');
 header('Cache-control: private, must-revalidate');

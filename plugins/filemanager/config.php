@@ -1,24 +1,24 @@
 <?php 
 if($_SESSION["verify"] != "FileManager4TinyMCE") die('forbidden');
 
-$root = rtrim($_SERVER['DOCUMENT_ROOT'],'/'); // don't touch this configuration
+//Specifies where the root of your webpage sits on disk. Usually it is best to
+//leave it as DOCUMENT_ROOT
+$root = rtrim($_SERVER['DOCUMENT_ROOT'],'/'); 
 
 //**********************
 //Path configuration
 //**********************
-// In this configuration the folder tree is
-// root
-//   |- tinymce
-//   |    |- source <- upload folder
-//   |    |- js
-//   |    |   |- tinymce
-//   |    |   |    |- plugins
-//   |    |   |    |-   |- filemanager
-//   |    |   |    |-   |-      |- thumbs <- folder of thumbs [must have the write permission]
+// The default configuration uses the following setup
+// | - root
+// | | - uploads <- Directory where files will be uploaded
+// | | - thumbs  <- Directory containing auto-generated thumbnails
+// | | - tinymce
+// | | | - plugins
+// | | | | - filemanager
 
-$base_url="http://localhost"; //url base of site if you want only relative url leave empty
-$upload_dir = '/tinymce/source/'; // path from base_url to upload base dir
-$current_path = '../../../../source/'; // relative path from filemanager folder to upload files folder
+$base_url=""; //url base of site if you want only relative url leave empty
+$upload_dir = 'uploads'; // path from the base_url to the uploads folder
+$thumbs_dir = 'thumbs'; // path from the base_url to thumbs folder
 
 $MaxSizeUpload=100; //Mb
 
@@ -33,14 +33,14 @@ $image_max_width=0;
 $image_max_height=0;
 
 //Automatic resizing //
-//If you set true $image_resizing the script convert all images uploaded in image_width x image_height resolution
+//If you set true $image_resizing the script convert all images uploaded to image_width x image_height resolution
 //If you set width or height to 0 the script calcolate automatically the other size
 $image_resizing=false;
 $image_width=600;
 $image_height=0;
 
 //******************
-//Permits config
+//Permissions config
 //******************
 $delete_file=true;
 $create_folder=true;

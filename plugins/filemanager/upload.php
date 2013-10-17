@@ -5,22 +5,13 @@ if($_SESSION["verify"] != "FileManager4TinyMCE") die('forbiden');
 
 include('config.php');
 include('utils.php');
-
-
-$ds          = DIRECTORY_SEPARATOR; 
- 
-$storeFolder = $_POST['path'];
-$storeFolderThumb = $_POST['path_thumb'];  
  
 if (!empty($_FILES) && $upload_files) {
      
     $tempFile = $_FILES['file']['tmp_name'];   
-      
-    $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds; 
-    $targetPathThumb = dirname( __FILE__ ) . $ds. $storeFolderThumb . $ds; 
      
-    $targetFile =  $targetPath. $_FILES['file']['name']; 
-    $targetFileThumb =  $targetPathThumb. $_FILES['file']['name']; 
+    $targetFile =  joinPaths($root,$upload_dir,$_POST['path'],$_FILES['file']['name']); 
+    $targetFileThumb =  joinPaths($root,$thumbs_dir,$_POST['path'],$_FILES['file']['name']);  
     move_uploaded_file($tempFile,$targetFile);
     
     if(in_array(substr(strrchr($_FILES['file']['name'],'.'),1),$ext_img)) $is_img=true;
