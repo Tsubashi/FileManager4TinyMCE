@@ -63,7 +63,6 @@ if(isset($_POST['submit'])){
     $query = http_build_query(array(
         'type'      => $_POST['type'],
         'lang'      => $_POST['lang'],
-        'subfolder' => $_POST['subfolder'],
         'popup'     => $_POST['popup'],
         'field_id'  => $_POST['field_id'],
         'editor'    => $_POST['editor'],
