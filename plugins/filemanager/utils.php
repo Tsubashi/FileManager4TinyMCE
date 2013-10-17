@@ -1,6 +1,6 @@
 <?php 
 
-if($_SESSION["verify"] != "FileManager4TinyMCE") die('forbiden');
+if($_SESSION["verify"] != "FileManager4TinyMCE") die('forbidden');
 
 function deleteDir($dir) {
     if (!file_exists($dir)) return true;

@@ -39,6 +39,10 @@ $image_resizing=false;
 $image_width=600;
 $image_height=0;
 
+//Thumbnail Size//
+$thumbnail_width=122;
+$thumbnail_height=91;
+
 //******************
 //Permissions config
 //******************

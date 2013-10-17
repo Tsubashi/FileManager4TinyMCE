@@ -301,12 +301,12 @@ if(isset($_POST['submit'])) {
                     $src_thumb = $file_thumb_url;
                     //add to thumbs folder if not already 
                     if(!file_exists($file_thumb_path)) {
-                      create_img_gd($file_path, $file_thumb_path, 122, 91);
+                      create_img_gd($file_path, $file_thumb_path, $thumbnail_width, $thumbnail_height);
                     }
                     $is_img=true;
                     //check if is smaller than the thumb
-                    $info=getimagesize($file_thumb_path);
-                    if($info[0]<122 && $info[2]<91) {
+                    $info=getimagesize($file_path);
+                    if($info[0]<$thumbnail_width && $info[2]<$thumbnail_height) {
                         $src_thumb=$file_url;
                         $show_original=true;
                     }
@@ -337,7 +337,7 @@ if(isset($_POST['submit'])) {
                         <a href="javascript:void('');" title="<?= lang_Select ?>" onclick="<?=$apply."('".$file."',".$_GET['type'].",'".$_GET['field_id']."');"; ?>">
                           <div class="img-precontainer">
                             <div class="img-container"><span></span>
-                              <img data-src="holder.js/122x91" alt="image" <?=$show_original ? "class='original'" : "" ?> src="<?=$src_thumb; ?>">
+                              <?='<img data-src="holder.js/'.$thumbnail_width.'x'.$thumbnail_height.'" alt="image"'. ($show_original ? 'class="original"' : '') .' src="'.$src_thumb.'">'?>
                             </div>
                           </div>
                         </a>	

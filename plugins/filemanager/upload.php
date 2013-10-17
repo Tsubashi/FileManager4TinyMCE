@@ -7,56 +7,52 @@ include('config.php');
 include('utils.php');
  
 if (!empty($_FILES) && $upload_files) {
-     
     $tempFile = $_FILES['file']['tmp_name'];   
-     
     $targetFile =  joinPaths($root,$upload_dir,$_POST['path'],$_FILES['file']['name']); 
     $targetFileThumb =  joinPaths($root,$thumbs_dir,$_POST['path'],$_FILES['file']['name']);  
     move_uploaded_file($tempFile,$targetFile);
     
-    if(in_array(substr(strrchr($_FILES['file']['name'],'.'),1),$ext_img)) $is_img=true;
-    else $is_img=false;
+    $is_img=(in_array(substr(strrchr($_FILES['file']['name'],'.'),1),$ext_img) ? true : false)
 
-    if($is_img){
-	create_img_gd($targetFile, $targetFileThumb, 122, 91);
+    if($is_img) {
+      create_img_gd($targetFile, $targetFileThumb, $thumbnail_width, $thumbnail_height);
 
-	$imginfo =getimagesize($targetFile);
-	$srcWidth = $imginfo[0];
-	$srcHeight = $imginfo[1];
-	
-	if($image_resizing){
-		
-	    if($image_width==0){
-		if($image_height==0){
-		    $image_width=$srcWidth;
-		    $image_height =$srcHeight;
-		}else{
-		    $image_width=$image_height*$srcWidth/$srcHeight;
-	    }
-	    }elseif($image_height==0){
-		$image_height =$image_width*$srcHeight/$srcWidth;
-	    }
-	    $srcWidth=$image_width;
-	    $srcHeight=$image_height;
-	    create_img_gd($targetFile, $targetFile, $image_width, $image_height);
-	}
-	
-	//max resizing limit control
-	$resize=false;
-	if($image_max_width!=0 && $srcWidth >$image_max_width){
-	    $resize=true;
-	    $srcHeight=$image_max_width*$srcHeight/$srcWidth;
-	    $srcWidth=$image_max_width;
-	}
-	
-	if($image_max_height!=0 && $srcHeight >$image_max_height){
-	    $resize=true;
-	    $srcWidth =$image_max_height*$srcWidth/$srcHeight;
-	    $srcHeight =$image_max_height;
-	}
-	if($resize)
-	    create_img_gd($targetFile, $targetFile, $srcWidth, $srcHeight);	
-	    
+      $imginfo =getimagesize($targetFile);
+      $srcWidth = $imginfo[0];
+      $srcHeight = $imginfo[1];
+      
+      if($image_resizing){
+        if($image_width==0){
+          if($image_height==0){
+            $image_width=$srcWidth;
+            $image_height =$srcHeight;
+          } else {
+            $image_width=$image_height*$srcWidth/$srcHeight;
+          }
+        } elseif ($image_height==0) {
+          $image_height =$image_width*$srcHeight/$srcWidth;
+        }
+        $srcWidth=$image_width;
+        $srcHeight=$image_height;
+        create_img_gd($targetFile, $targetFile, $image_width, $image_height);
+      }
+      
+      //max resizing limit control
+      $resize=false;
+      if ($image_max_width!=0 && $srcWidth >$image_max_width) {
+        $resize=true;
+        $srcHeight=$image_max_width*$srcHeight/$srcWidth;
+        $srcWidth=$image_max_width;
+      }
+      
+      if ($image_max_height!=0 && $srcHeight >$image_max_height) {
+        $resize=true;
+        $srcWidth =$image_max_height*$srcWidth/$srcHeight;
+        $srcHeight =$image_max_height;
+      }
+      if ($resize) {
+        create_img_gd($targetFile, $targetFile, $srcWidth, $srcHeight);	
+      }
     }
 }
 if(isset($_POST['submit'])){
