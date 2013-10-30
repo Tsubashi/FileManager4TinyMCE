@@ -123,7 +123,7 @@ function apply_link(file,type_file,external){
   var track = $('#track').val();
   
   if (external=="") {
-    $('.mce-link_'+track, window_parent.document).val(path+"/"+file);
+    $('.mce-link_'+track, window_parent.document).val(path+file);
     var closed = window_parent.document.getElementsByClassName('mce-filemanager');
     if($('.mce-text_'+track, window_parent.document).val()=='') {
       $('.mce-text_'+track, window_parent.document).val(file.replace(/\..+$/, ''));
@@ -131,7 +131,7 @@ function apply_link(file,type_file,external){
     $(closed).find('.mce-close').trigger('click');
   } else {
     var target = window_parent.document.getElementById(external);
-    $(target).val(path+"/"+file);
+    $(target).val(path+file);
     close_window();
   }
 }
