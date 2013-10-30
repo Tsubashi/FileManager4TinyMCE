@@ -221,38 +221,39 @@ if(isset($_POST['submit'])) {
             }
             $files = scandir($cur_upload_path);
             //List all the folders first
-            foreach ($files as $file) {
-              $file_path = joinPaths($cur_upload_path,$file);
-              $file_relative_path = joinPaths($subdir,$file);
-              $file_thumb_path = joinPaths($cur_thumbs_path,$file);
-              if (is_dir($file_path) 
-                  && ($file != '.' 
-                  && !($file == '..' 
+            foreach ($files as $folder) {
+              $folder_path = joinPaths($cur_upload_path,$folder);
+              $folder_relative_path = joinPaths($subdir,$folder);
+              $folder_thumb_path = joinPaths($cur_thumbs_path,$folder);
+              if (is_dir($folder_path)
+                  && $folder[0] != '.'              
+                  && ($folder != '.' 
+                  && !($folder == '..' 
                   && $subdir=='')) 
                   ) {
                 //add in thumbs folder if not exist 
-                if (!file_exists($file_path)) {
-                  create_folder(false,$file_path);
+                if (!file_exists($folder_path)) {
+                  create_folder(false,$folder_path);
                 }
                 $class_ext = 3;			
-                if($file=='..' 
+                if($folder=='..' 
                    && trim($subdir) != '' 
                    ){
                     $src = explode("/",$subdir);
                     unset($src[count($src)-2]); //Remove the last entry?
                     $src=implode("/",$src);
-                } elseif ($file!='..') {
-                  $src = $subdir . $file."/";
+                } elseif ($folder!='..') {
+                  $src = $subdir . $folder."/";
                 }
                 ?>
                 <li>
                   <figure>
                       <a title="<?= lang_Open ?>" href="<?=$link.$src.'&'.uniqid() ?>">
                         <?php 
-                        if($file=="..") { ?>
+                        if($folder=="..") { ?>
                           <div class="img-precontainer">
                             <div class="img-container directory"><span></span>
-                              <img class="directory-img"  src="ico/folder<?php if($file=='..') echo "_return"?>.png" alt="folder" />
+                              <img class="directory-img"  src="ico/folder<?php if($folder=='..') echo "_return"?>.png" alt="folder" />
                             </div>
                           </div>
                         </a>
@@ -260,15 +261,15 @@ if(isset($_POST['submit'])) {
                         } else { ?>
                             <div class="img-precontainer">
                               <div class="img-container directory"><span></span>
-                                <img class="directory-img"  src="ico/folder<?php if($file=='..') echo "_return"?>.png" alt="folder" />
+                                <img class="directory-img"  src="ico/folder<?php if($folder=='..') echo "_return"?>.png" alt="folder" />
                               </div>
                             </div>
                           </a>
                           <div class="box">
-                            <h4><?=$file ?></h4>
+                            <h4><?=$folder ?></h4>
                           </div>
                           <figcaption>
-                            <a href="javascript:void('')" class="erase-button" <?php if($delete_folder){ ?>onclick="if(confirm('<?= lang_Confirm_Folder_del;  ?>')){ delete_folder('<?=$file_relative_path; ?>'); $(this).parent().parent().parent().hide(200); return false;}"<?php } ?> title="<?= lang_Erase ?>">
+                            <a href="javascript:void('')" class="erase-button" <?php if($delete_folder){ ?>onclick="if(confirm('<?= lang_Confirm_Folder_del;  ?>')){ delete_folder('<?=$folder_relative_path; ?>'); $(this).parent().parent().parent().hide(200); return false;}"<?php } ?> title="<?= lang_Erase ?>">
                               <i class="icon-trash <?php if(!$delete_folder) echo 'icon-white'; ?>"></i>
                             </a>
                           </figcaption>
@@ -291,6 +292,7 @@ if(isset($_POST['submit'])) {
               
               if ($file != '.' 
                   && $file != '..' 
+                  && $file[0] != '.'
                   && !is_dir($file_path)
                   ) {
                 $is_img=false;
