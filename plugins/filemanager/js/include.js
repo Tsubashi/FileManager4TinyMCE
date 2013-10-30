@@ -20,7 +20,7 @@ $(document).ready(function(){
   });
   $('.close-uploader').click(function(){
     $('.uploader').hide(500);
-    window.location.href = $('#refresh').attr('href') + '&' + new Date().getTime();;
+    window.location.href = $('#refresh').attr('href') + '&' + new Date().getTime();
   });
   $('.preview').click(function(){
     $('#full-img').attr('src',$(this).data('url'));
@@ -38,7 +38,18 @@ $(document).ready(function(){
       $.ajax({
         type: "POST",
         url: "create_folder.php",
-        data: {path: path+"/"+folder_path}
+        data: {path: path+"/"+folder_path},
+        dataType: "json",
+        success: function(data) {
+          if(data.status == 'success') {
+            //DO NOTHING
+          } else if(data.status == 'failure') {
+            alert("Error: "+data.reason);
+          }
+        },
+        error: function() {
+          alert("There was an error. Try again please!");
+        }
       }).done(function( msg ) {
         window.location.href = $('#refresh').attr('href') + '&' + new Date().getTime();
       });
@@ -174,7 +185,19 @@ function delete_file(file1) {
   $.ajax({
     type: "POST",
     url: "delete_file.php",
-    data: {path: file1}
+    data: {path: file1},
+    dataType: "json",
+    success: function(data) {
+      if(data.status == 'success') {
+        //DO NOTHING
+      } else if(data.status == 'failure') {
+        alert("Error: "+data.reason);
+        window.location.href = $('#refresh').attr('href') + '&' + new Date().getTime();
+      }
+    },
+    error: function() {
+      alert("There was an error. Try again please!");
+    }
   }).done(function( msg ) {});
 }
 
@@ -183,7 +206,19 @@ function delete_folder(folder1) {
   $.ajax({
     type: "POST",
     url: "delete_folder.php",
-    data: {path: folder1}
+    data: {path: folder1},
+    dataType: "json",
+    success: function(data) {
+      if(data.status == 'success') {
+        //DO NOTHING
+      } else if(data.status == 'failure') {
+        alert("Error: "+data.reason);
+        window.location.href = $('#refresh').attr('href') + '&' + new Date().getTime();
+      }
+    },
+    error: function() {
+      alert("There was an error. Try again please!");
+    }
   }).done(function( msg ) {});
 }
 

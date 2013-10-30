@@ -1,4 +1,6 @@
-<?php 
+<?php
+ini_set('display_errors', '0');     # don't show any errors...
+error_reporting(E_ALL | E_STRICT);  # ...but do log them
 
 if($_SESSION["verify"] != "FileManager4TinyMCE") die('forbidden');
 
@@ -35,10 +37,11 @@ function makeSize($size) {
 function create_folder($path=false,$path_thumbs=false){
 	$oldumask = umask(0); 
 	if ($path && !file_exists($path))
-		mkdir($path, 0777); // or even 01777 so you get the sticky bit set 
+		mkdir($path, 0775); // or even 01777 so you get the sticky bit set 
 	if($path_thumbs && !file_exists($path_thumbs)) 
-		mkdir($path_thumbs, 0777); // or even 01777 so you get the sticky bit set 
+		mkdir($path_thumbs, 0775); // or even 01777 so you get the sticky bit set 
 	umask($oldumask);
+  return true;
 }
 
 function joinPaths() {
@@ -63,6 +66,11 @@ function joinURL() {
   $paths = array_map(create_function('$p', 'return rtrim($p, "/");'), $paths);
   $paths = array_filter($paths);
   return join('/', $paths);
+}
+
+function returnJSON($response_array) {
+  header('Content-type: application/json');
+  die(json_encode($response_array));
 }
 
 ?>
